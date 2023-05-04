@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+<h1>Perfiles</h1>
+<div class="card-columns">
+  {% for profile in profiles %}
+  <div class="card">
+    {% if profile.profile_pic %}
+    <img src="https://pbs.twimg.com/media/FjU2lkcWYAgNG6d.jpg" class="card-img-top" alt="{{ profile.user.username }}'s profile picture">
+    {% else %}
+    <img src="{% static 'profiles/default_profile_pic.jpg' %}" class="card-img-top" alt="{{ profile.user.username }}'s profile picture">
+    {% endif %}
+    <div class="card-body">
+      <h5 class="card-title">{{ profile }}</h5>
+      <p class="card-text">{{ profile.bio }}</p>
+      <p class="card-text">Ubicación: {{ profile.location }}</p>
+      <p class="card-text">Fecha de nacimiento: {{ profile.birth_date }}</p>
+      <a href="{% url 'profile-detail' profile.id %}" class="btn btn-primary">Ver perfil</a>
+    </div>
+  </div>
+  {% empty %}
+  <p>No hay perfiles disponibles.</p>
+  {% endfor %}
+</div>
+{% endblock %}
